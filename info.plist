@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>mr.pennyworth.AlfredClipboardHistoryOCR</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>61D39B58-738E-40C6-9BEC-86CF43B078CF</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D6A9F931-55FC-42F1-A4CB-EAD888770940</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>7C7978CF-711C-4286-806C-23CEB886129A</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>9D3D44B8-97A9-48E5-8912-3D32CB8805C9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>9D3D44B8-97A9-48E5-8912-3D32CB8805C9</key>
+		<array/>
+	</dict>
+	<key>createdby</key>
+	<string>Mr. Pennyworth</string>
+	<key>description</key>
+	<string>Make images in clipboard history searchable by their text content</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Clipboard History OCR</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>.clipboard-history-ocr-install</string>
+				<key>subtext</key>
+				<string>.clipboard-history-ocr-install</string>
+				<key>text</key>
+				<string>Install Clipboard History OCR LaunchAgent</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>7C7978CF-711C-4286-806C-23CEB886129A</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>mkdir ~/Library/LaunchAgents
+
+cat &lt;&lt;EOF &gt; ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+	&lt;key&gt;Label&lt;/key&gt;
+	&lt;string&gt;alfred-clipboard-history-ocr&lt;/string&gt;
+	&lt;key&gt;ProgramArguments&lt;/key&gt;
+	&lt;array&gt;
+		&lt;string&gt;/usr/bin/python&lt;/string&gt;
+		&lt;string&gt;$(pwd)/ocr.py&lt;/string&gt;
+	&lt;/array&gt;
+	&lt;key&gt;RunAtLoad&lt;/key&gt;
+	&lt;true/&gt;
+	&lt;key&gt;StandardErrorPath&lt;/key&gt;
+	&lt;string&gt;/tmp/alfred-clipboard-history-ocr.out&lt;/string&gt;
+	&lt;key&gt;StandardOutPath&lt;/key&gt;
+	&lt;string&gt;/tmp/alfred-clipboard-history-ocr.out&lt;/string&gt;
+	&lt;key&gt;WatchPaths&lt;/key&gt;
+	&lt;array&gt;
+		&lt;string&gt;$HOME/Library/Application Support/Alfred/Databases/clipboard.alfdb.data&lt;/string&gt;
+	&lt;/array&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+EOF
+
+xattr -d com.apple.quarantine ./Tesseract.app
+launchctl load ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>9D3D44B8-97A9-48E5-8912-3D32CB8805C9</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>.clipboard-history-ocr-uninstall</string>
+				<key>subtext</key>
+				<string>.clipboard-history-ocr-uninstall</string>
+				<key>text</key>
+				<string>Uninstall Clipboard History OCR LaunchAgent</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>61D39B58-738E-40C6-9BEC-86CF43B078CF</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>rm ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>D6A9F931-55FC-42F1-A4CB-EAD888770940</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>61D39B58-738E-40C6-9BEC-86CF43B078CF</key>
+		<dict>
+			<key>xpos</key>
+			<integer>10</integer>
+			<key>ypos</key>
+			<integer>175</integer>
+		</dict>
+		<key>7C7978CF-711C-4286-806C-23CEB886129A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>10</integer>
+			<key>ypos</key>
+			<integer>10</integer>
+		</dict>
+		<key>9D3D44B8-97A9-48E5-8912-3D32CB8805C9</key>
+		<dict>
+			<key>note</key>
+			<string>Create and load LaunchAgent for ocr.py</string>
+			<key>xpos</key>
+			<integer>195</integer>
+			<key>ypos</key>
+			<integer>10</integer>
+		</dict>
+		<key>D6A9F931-55FC-42F1-A4CB-EAD888770940</key>
+		<dict>
+			<key>note</key>
+			<string>delete the LaunchAgent</string>
+			<key>xpos</key>
+			<integer>195</integer>
+			<key>ypos</key>
+			<integer>175</integer>
+		</dict>
+	</dict>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>0.0.1</string>
+	<key>webaddress</key>
+  <string>https://github.com/mr-pennyworth/alfred-clipboard-ocr#readme</string>
+</dict>
+</plist>
