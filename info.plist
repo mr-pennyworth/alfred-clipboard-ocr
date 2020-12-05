@@ -105,7 +105,7 @@ cat &lt;&lt;EOF &gt; ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
 EOF
 
 xattr -d com.apple.quarantine ./Tesseract.app
-launchctl load ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
+launchctl load -wF ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -205,8 +205,8 @@ launchctl load ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>0.0.1</string>
+	<string>0.0.2</string>
 	<key>webaddress</key>
-  <string>https://github.com/mr-pennyworth/alfred-clipboard-ocr#readme</string>
+	<string>https://github.com/mr-pennyworth/alfred-clipboard-ocr#readme</string>
 </dict>
 </plist>
