@@ -1,8 +1,12 @@
-# Clipboard History OCR for Alfred
-
+<h1 align="center">
+  
 <a href="https://github.com/mr-pennyworth/alfred-clipboard-ocr/releases/latest/">
-  <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/mr-pennyworth/alfred-clipboard-ocr/total">
-</a><br/><br/>
+  <img src="icon.png" width="16%"><br/>
+  <img alt="Download"
+       src="https://img.shields.io/github/downloads/mr-pennyworth/alfred-clipboard-ocr/total?color=purple&label=Download"><br/>
+</a>
+  Clipboard History OCR for Alfred
+</h1>
 
 Make images in [Alfred](https://alfredapp.com)'s clipboard history
 searchable by their text content.
