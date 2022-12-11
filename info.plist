@@ -87,7 +87,7 @@ cat &lt;&lt;EOF &gt; ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
 	&lt;string&gt;alfred-clipboard-history-ocr&lt;/string&gt;
 	&lt;key&gt;ProgramArguments&lt;/key&gt;
 	&lt;array&gt;
-		&lt;string&gt;/usr/bin/python&lt;/string&gt;
+		&lt;string&gt;/usr/bin/python3&lt;/string&gt;
 		&lt;string&gt;$(pwd)/ocr.py&lt;/string&gt;
 	&lt;/array&gt;
 	&lt;key&gt;RunAtLoad&lt;/key&gt;
@@ -105,6 +105,7 @@ cat &lt;&lt;EOF &gt; ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
 EOF
 
 xattr -d com.apple.quarantine ./Tesseract.app
+launchctl unload ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
 launchctl load -wF ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
@@ -149,7 +150,8 @@ launchctl load -wF ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</st
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>rm ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
+				<string>launchctl unload ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
+rm ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -172,40 +174,42 @@ launchctl load -wF ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</st
 		<key>61D39B58-738E-40C6-9BEC-86CF43B078CF</key>
 		<dict>
 			<key>xpos</key>
-			<integer>10</integer>
+			<real>30</real>
 			<key>ypos</key>
-			<integer>175</integer>
+			<real>175</real>
 		</dict>
 		<key>7C7978CF-711C-4286-806C-23CEB886129A</key>
 		<dict>
 			<key>xpos</key>
-			<integer>10</integer>
+			<real>30</real>
 			<key>ypos</key>
-			<integer>10</integer>
+			<real>15</real>
 		</dict>
 		<key>9D3D44B8-97A9-48E5-8912-3D32CB8805C9</key>
 		<dict>
 			<key>note</key>
 			<string>Create and load LaunchAgent for ocr.py</string>
 			<key>xpos</key>
-			<integer>195</integer>
+			<real>195</real>
 			<key>ypos</key>
-			<integer>10</integer>
+			<real>15</real>
 		</dict>
 		<key>D6A9F931-55FC-42F1-A4CB-EAD888770940</key>
 		<dict>
 			<key>note</key>
 			<string>delete the LaunchAgent</string>
 			<key>xpos</key>
-			<integer>195</integer>
+			<real>195</real>
 			<key>ypos</key>
-			<integer>175</integer>
+			<real>175</real>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>0.0.2</string>
+	<string>0.0.3</string>
 	<key>webaddress</key>
 	<string>https://github.com/mr-pennyworth/alfred-clipboard-ocr#readme</string>
 </dict>

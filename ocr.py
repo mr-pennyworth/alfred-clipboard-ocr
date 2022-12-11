@@ -38,7 +38,7 @@ for (txt, img_filename) in rows:
   new_txt = txt.replace('Image:', 'img:')
   ocr_txt = imgtxt(img_filename).strip()
   if ocr_txt:
-    new_txt = 'img: ' + ocr_txt
+    new_txt = 'img: ' + ocr_txt.decode()
     
   db.execute('UPDATE clipboard SET item = ? WHERE dataHash == ?',
              (new_txt, img_filename))
