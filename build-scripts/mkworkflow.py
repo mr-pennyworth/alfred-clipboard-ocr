@@ -14,7 +14,6 @@ WF_FILES = [
   'info.plist',
   'ocr.py',
   'README.md',
-  'Tesseract.app',
 ]
 
 

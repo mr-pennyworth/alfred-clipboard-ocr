@@ -25,12 +25,6 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Download Latest Tesseract.app
-        run: wget https://github.com/mr-pennyworth/tesseract-app/releases/latest/download/Tesseract.app.zip
-
-      - name: Extract Tesseract
-        run: unzip Tesseract.app.zip
-
       - name: Build Workflow
         run: python3 build-scripts/mkworkflow.py
 

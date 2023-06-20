@@ -10,16 +10,19 @@ DB_PATH = DB_DIR + '/clipboard.alfdb'
 
 WORKFLOW_DIR = sys.path[0]
 
-TESSERACT = WORKFLOW_DIR + '/Tesseract.app/Contents/MacOS/tesseract'
-TESSDATA = WORKFLOW_DIR + '/Tesseract.app/Contents/Resources'
-
 def imgtxt(img_filename):
   img_filepath = IMAGES_DIR + '/' + img_filename
+  if img_filepath.endswith('tiff'):
+    tmp_path = f'/tmp/{os.path.basename(img_filepath)}.png'
+    subprocess.check_call([
+      'sips',
+      '-s', 'format', 'png',
+      img_filepath,
+      '--out', tmp_path,
+    ])
+    img_filepath = tmp_path
   return subprocess.check_output([
-    TESSERACT,
-    '--tessdata-dir', TESSDATA,
-    img_filepath,
-    'stdout'
+    'swift', f'{WORKFLOW_DIR}/ocr.swift', img_filepath
   ])
 
 
@@ -39,7 +42,7 @@ for (txt, img_filename) in rows:
   ocr_txt = imgtxt(img_filename).strip()
   if ocr_txt:
     new_txt = 'img: ' + ocr_txt.decode()
-    
+
   db.execute('UPDATE clipboard SET item = ? WHERE dataHash == ?',
              (new_txt, img_filename))
 
