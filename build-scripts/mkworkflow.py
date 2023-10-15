@@ -13,6 +13,7 @@ WF_FILES = [
   'icon.png',
   'info.plist',
   'ocr.py',
+  'ocr.swift',
   'README.md',
 ]
 
@@ -46,7 +47,7 @@ def cwd(dir):
   yield
   os.chdir(old_wd)
 
-  
+
 def make_export_ready(plist_path):
   wf = plistRead(plist_path)
 
@@ -58,7 +59,7 @@ def make_export_ready(plist_path):
 
   plistWrite(wf, plist_path)
   return wf['name']
-  
+
 
 if __name__ == '__main__':
   copy(WF_FILES, BUILD_DIR)
