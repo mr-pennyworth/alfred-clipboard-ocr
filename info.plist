@@ -76,9 +76,15 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>mkdir ~/Library/LaunchAgents
+				<string>mkdir -p "$HOME/Library/LaunchAgents"
 
-cat &lt;&lt;EOF &gt; ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
+xml_escape() {
+  /usr/bin/sed -e 's/&amp;/\&amp;amp;/g' -e 's/&lt;/\&amp;lt;/g' -e 's/&gt;/\&amp;gt;/g'
+}
+workflow_dir_xml=$(printf '%s' "$PWD" | xml_escape)
+home_xml=$(printf '%s' "$HOME" | xml_escape)
+
+cat &lt;&lt;EOF &gt; "$HOME/Library/LaunchAgents/alfred-clipboard-history-ocr.plist"
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
 &lt;plist version="1.0"&gt;
@@ -87,8 +93,10 @@ cat &lt;&lt;EOF &gt; ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
 	&lt;string&gt;alfred-clipboard-history-ocr&lt;/string&gt;
 	&lt;key&gt;ProgramArguments&lt;/key&gt;
 	&lt;array&gt;
-		&lt;string&gt;/usr/bin/python3&lt;/string&gt;
-		&lt;string&gt;$(pwd)/ocr.py&lt;/string&gt;
+		&lt;string&gt;/usr/bin/osascript&lt;/string&gt;
+		&lt;string&gt;-l&lt;/string&gt;
+		&lt;string&gt;JavaScript&lt;/string&gt;
+		&lt;string&gt;$workflow_dir_xml/ocr.js&lt;/string&gt;
 	&lt;/array&gt;
 	&lt;key&gt;RunAtLoad&lt;/key&gt;
 	&lt;true/&gt;
@@ -98,14 +106,14 @@ cat &lt;&lt;EOF &gt; ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
 	&lt;string&gt;/tmp/alfred-clipboard-history-ocr.out&lt;/string&gt;
 	&lt;key&gt;WatchPaths&lt;/key&gt;
 	&lt;array&gt;
-		&lt;string&gt;$HOME/Library/Application Support/Alfred/Databases/clipboard.alfdb.data&lt;/string&gt;
+		&lt;string&gt;$home_xml/Library/Application Support/Alfred/Databases/clipboard.alfdb.data&lt;/string&gt;
 	&lt;/array&gt;
 &lt;/dict&gt;
 &lt;/plist&gt;
 EOF
 
-launchctl unload ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
-launchctl load -wF ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
+launchctl unload "$HOME/Library/LaunchAgents/alfred-clipboard-history-ocr.plist"
+launchctl load -wF "$HOME/Library/LaunchAgents/alfred-clipboard-history-ocr.plist"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -149,8 +157,8 @@ launchctl load -wF ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</st
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>launchctl unload ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist
-rm ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
+				<string>launchctl unload "$HOME/Library/LaunchAgents/alfred-clipboard-history-ocr.plist"
+rm "$HOME/Library/LaunchAgents/alfred-clipboard-history-ocr.plist"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -187,7 +195,7 @@ rm ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
 		<key>9D3D44B8-97A9-48E5-8912-3D32CB8805C9</key>
 		<dict>
 			<key>note</key>
-			<string>Create and load LaunchAgent for ocr.py</string>
+			<string>Create and load LaunchAgent for ocr.js</string>
 			<key>xpos</key>
 			<real>195</real>
 			<key>ypos</key>
@@ -208,7 +216,7 @@ rm ~/Library/LaunchAgents/alfred-clipboard-history-ocr.plist</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>0.1.2</string>
+	<string>0.1.3</string>
 	<key>webaddress</key>
 	<string>https://github.com/mr-pennyworth/alfred-clipboard-ocr#readme</string>
 </dict>

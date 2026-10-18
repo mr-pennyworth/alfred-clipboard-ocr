@@ -12,8 +12,7 @@ BUILD_DIR = 'wfbuild'
 WF_FILES = [
   'icon.png',
   'info.plist',
-  'ocr.py',
-  'ocr.swift',
+  'ocr.js',
   'README.md',
 ]
 
@@ -64,7 +63,9 @@ def make_export_ready(plist_path):
 if __name__ == '__main__':
   copy(WF_FILES, BUILD_DIR)
   wf_name = make_export_ready(f'{BUILD_DIR}/info.plist')
+  # Start with a new archive so that removed workflow files cannot remain in it.
+  archive_path = os.path.abspath(f'{wf_name}.alfredworkflow')
+  if os.path.exists(archive_path):
+    os.remove(archive_path)
   with cwd(BUILD_DIR):
-    subprocess.call(
-      ['zip', '-q', '-r', f'../{wf_name}.alfredworkflow'] + WF_FILES
-    )
+    subprocess.run(['zip', '-q', '-r', archive_path] + WF_FILES, check=True)

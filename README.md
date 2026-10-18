@@ -27,15 +27,12 @@ and makes the image searchable using that text.
  2. Type `.clipboard-history-ocr-install`
  3. Done!
 
-
 ### Uninstall
  1. Run `.clipboard-history-ocr-uninstall` in Alfred.
  2. Delete the workflow from Alfred.
 
 
 ### Credits
- - [Tesseract OCR](https://github.com/tesseract-ocr/tesseract)
- - [Mac dilyb bundler](https://github.com/auriamg/macdylibbundler)
  - Icon made by combining icons from [flaticon](https://www.flaticon.com)
    by [Pixel Perfect](https://www.flaticon.com/authors/pixel-perfect) and
    [Dimitry Miroliubov](https://www.flaticon.com/authors/dimitry-miroliubov).
